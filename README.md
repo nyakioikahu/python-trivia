@@ -14,8 +14,8 @@ Ensure you have Python installed. This project works with Python 3.
 ## Installation and Setup
 ### 1. Clone the Repository
 ```sh
-git clone <repository-url>
-cd <repository-folder>
+git clone https://github.com/JKUAT-Inspire-Youth-In-STEM/python-trivia.git
+cd JKUAT-Inspire-Youth-In-STEM
 ```
 
 ### 2. Install Dependencies
