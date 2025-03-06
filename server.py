@@ -16,14 +16,22 @@ def handle_request(request):
 
 
     if "answer" in params:
-        if params["answer"][0] == ANSWER.lower():
+        if clean_input(params["answer"][0]) == ANSWER.lower():
             message = "You know my favourite color!, friend verified :)"
+        else:
+            message = "Couldn't be worse, reconsidering friendship :("
+    
+    if "tf" in params:
+        if params["tf"][0] == ANSWER2.lower():
+            message = "Thats correct, friend verified"
         else:
             message = "Couldn't be worse, reconsidering friendship :("
     
 
     show_question(request, message)
 
+def clean_input(input):
+    return input.strip().lower()
 
 def show_question(response, message=""):
     html = f"""<!DOCTYPE html>
@@ -62,6 +70,18 @@ def show_question(response, message=""):
             <h1>{QUESTION}</h1>
             <form>
                 <input type="text" name="answer" placeholder="Type your answer">
+                <button type="submit">Check</button>
+            </form>
+        </div>
+
+        <div class="q-container">
+            <h1>{QUESTION2}</h1>
+
+            <form>
+                <label for="t"> True </label>
+                <input type="radio" name="tf" value="true" id="t"/>
+                <label for="f"> False </label>
+                <input type="radio" name="tf" value="false" id="f"/>
                 <button type="submit">Check</button>
             </form>
         </div>
