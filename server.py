@@ -1,12 +1,14 @@
 from http.server import HTTPServer, BaseHTTPRequestHandler
 from urllib.parse import urlparse, parse_qs
 
-QUESTION = "What's my favourite color"
-ANSWER = "red"
+QUESTION = "What is the name of my first dog?"
+ANSWER = "Daisy"
 
-QUESTION2 = "Do I have a phone"
-ANSWER2 = "True"
+QUESTION2 = "Am I 18+?"
+ANSWER2 = "Yes"
 
+QUESTION3 = "What High School did I study in?"
+ANSWER3 = "Kabarak"
 
 def handle_request(request):
     parsed_path = urlparse(request.path)
@@ -17,16 +19,21 @@ def handle_request(request):
 
     if "answer" in params:
         if clean_input(params["answer"][0]) == ANSWER.lower():
-            message = "You know my favourite color!, friend verified :)"
+            message = "You know me well!, friend verified :)"
         else:
-            message = "Couldn't be worse, reconsidering friendship :("
+            message = "Just say you want to cut me off :("
     
-    if "tf" in params:
+    if "yn" in params:
         if params["tf"][0] == ANSWER2.lower():
-            message = "Thats correct, friend verified"
+            message = "You know me well!, friend verified"
         else:
-            message = "Couldn't be worse, reconsidering friendship :("
-    
+            message = "Just say you want to cut me off :("
+
+    if "answer" in params:
+        if clean_input(params["answer"][0]) == ANSWER3.lower():
+            message = "You know me well!, friend verified :)"
+        else:
+            message = "Just say you want to cut me off :("
 
     show_question(request, message)
 
@@ -37,15 +44,15 @@ def show_question(response, message=""):
     html = f"""<!DOCTYPE html>
     <html>
     <head>
-        <title>Trivia</title>
+        <title>How well do you know Nyakio:)</title>
         <style>
-            body {{ font-family: Arial, sans-serif; text-align: center; padding: 20px; background-color: #f4f4f4; }}
-            h1 {{ color: #4CAF50; }}
+            body {{ font-family: Arial, sans-serif; text-align: center; padding: 20px; background-color:rgb(176, 148, 199); }}
+            h1 {{ color: pink; }}
             .q-container {{
                 display: flex;
                 flex-direction: column;
                 justify-content: center;
-                background: white;
+                background: rgb(204, 248, 234);
                 padding: 20px;
                 margin: 20px auto;
                 width: 60%;
@@ -56,7 +63,7 @@ def show_question(response, message=""):
             input, button {{ padding: 10px; margin: 10px; font-size: 16px; }}
             button {{
                 background-color: #008CBA;
-                color: white;
+                color: black;
                 border: none;
                 cursor: pointer;
                 border-radius: 5px;
@@ -78,10 +85,17 @@ def show_question(response, message=""):
             <h1>{QUESTION2}</h1>
 
             <form>
-                <label for="t"> True </label>
-                <input type="radio" name="tf" value="true" id="t"/>
-                <label for="f"> False </label>
-                <input type="radio" name="tf" value="false" id="f"/>
+                <label for="y"> Yes </label>
+                <input type="radio" name="yn" value="yes" id="y"/>
+                <label for="n"> No </label>
+                <input type="radio" name="yn" value="no" id="n"/>
+                <button type="submit">Check</button>
+            </form>
+        </div>
+         <div class="q-container">
+            <h1>{QUESTION3}</h1>
+            <form>
+                <input type="text" name="answer" placeholder="Type your answer">
                 <button type="submit">Check</button>
             </form>
         </div>
